@@ -12,17 +12,23 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v4
+      name: Checkout code
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install Dependencies
+      run: |
+        cd Strategy_werks  # Navigate to the directory where package.json is located
+        npm install
+
     - name: Build
       run: |
-        npm install
+        cd Strategy_werks  # Navigate to the directory where package.json is located
         npx webpack
